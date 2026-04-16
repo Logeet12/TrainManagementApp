@@ -9,29 +9,42 @@ class Train {
         this.bogies = new ArrayList<>();
     }
 
-    public void addBogie(Bogie bogie) {
+    // ✅ Add Passenger Bogie
+    public void addPassengerBogie(String id, String type, int capacity) {
+        PassengerBogie bogie = new PassengerBogie(id, type, capacity);
         bogies.add(bogie);
+        System.out.println("Added Passenger Bogie: " + id);
     }
 
-    public void displaySummary() {
-        int totalBogies = bogies.size();
-        int totalCapacity = 0;
-        Set<String> cargoTypes = new HashSet<>();
+    // ✅ Remove Bogie by ID
+    public void removeBogie(String id) {
+        Iterator<Bogie> iterator = bogies.iterator();
 
-        for (Bogie b : bogies) {
-            if (b instanceof PassengerBogie) {
-                totalCapacity += ((PassengerBogie) b).getCapacity();
-            } else if (b instanceof GoodsBogie) {
-                cargoTypes.add(((GoodsBogie) b).getCargoType());
+        while (iterator.hasNext()) {
+            Bogie b = iterator.next();
+            if (b.id.equals(id)) {
+                iterator.remove();
+                System.out.println("Removed Bogie: " + id);
+                return;
             }
         }
 
-        System.out.println("🚆 Train Engine: " + engineId);
-        System.out.println("Total Bogies: " + totalBogies);
-        System.out.println("Total Passenger Capacity: " + totalCapacity);
-        System.out.println("Cargo Types: " + cargoTypes);
+        System.out.println("Bogie not found: " + id);
+    }
 
-        System.out.println("\n--- Train Composition ---");
+    // ✅ Check if Bogie Exists
+    public boolean containsBogie(String id) {
+        for (Bogie b : bogies) {
+            if (b.id.equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Display
+    public void displayBogies() {
+        System.out.println("\n--- Current Train Consist ---");
         for (Bogie b : bogies) {
             b.displayDetails();
         }
