@@ -1,17 +1,20 @@
 public class Main {
-        public static void main(String[] args) {
+    public static void main(String[] args) {
 
-            Train train = new Train("ENG123");
+        Train train = new Train("ENG101");
 
-            // Add Passenger Bogies
-            train.addBogie(new PassengerBogie("B1", "Sleeper", 72));
-            train.addBogie(new PassengerBogie("B2", "AC Chair", 50));
+        // Add bogies dynamically
+        train.addPassengerBogie("P1", "Sleeper", 72);
+        train.addPassengerBogie("P2", "AC Chair", 50);
 
-            // Add Goods Bogies
-            train.addBogie(new GoodsBogie("G1", "Rectangular", "Coal"));
-            train.addBogie(new GoodsBogie("G2", "Cylindrical", "Oil"));
+        train.displayBogies();
 
-            // Display Summary
-            train.displaySummary();
-        }
+        // Check existence
+        System.out.println("P1 exists? " + train.containsBogie("P1"));
+
+        // Remove bogie
+        train.removeBogie("P1");
+
+        train.displayBogies();
     }
+}
