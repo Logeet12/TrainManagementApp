@@ -3,25 +3,18 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
-        // Create LinkedHashSet for ordered + unique bogies
-        LinkedHashSet<String> train = new LinkedHashSet<>();
+        // Create HashMap to store bogie -> capacity
+        HashMap<String, Integer> bogieCapacity = new HashMap<>();
 
-        // Adding bogies
-        train.add("Engine");
-        train.add("Sleeper");
-        train.add("Cargo");
-        train.add("Guard");
+        // Insert bogie-capacity pairs
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 78);
+        bogieCapacity.put("First Class", 24);
 
-        // Attempt duplicate
-        boolean isAdded = train.add("Sleeper");
-        if (!isAdded) {
-            System.out.println("Duplicate bogie ignored: Sleeper");
-        }
-
-        // Display final formation
-        System.out.println("Final Train Formation:");
-        for (String bogie : train) {
-            System.out.println(bogie);
+        // Display all entries using entrySet()
+        System.out.println("Bogie Capacity Details:");
+        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
     }
 }
