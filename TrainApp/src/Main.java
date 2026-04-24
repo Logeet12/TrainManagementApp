@@ -19,19 +19,25 @@ class Bogie {
 public class Main {
     public static void main(String[] args) {
 
-        // Reuse list from UC7
+        // Reuse list
         List<Bogie> bogies = new ArrayList<>();
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 78));
         bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("Sleeper", 70)); // another sleeper
 
-        // Stream + filter
-        List<Bogie> filtered = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
+        // Group by bogie name
+        Map<String, List<Bogie>> grouped =
+                bogies.stream()
+                        .collect(Collectors.groupingBy(b -> b.name));
 
-        // Display filtered bogies
-        System.out.println("Bogies with capacity > 60:");
-        filtered.forEach(System.out::println);
+        // Display grouped result
+        System.out.println("Grouped Bogies:");
+        for (Map.Entry<String, List<Bogie>> entry : grouped.entrySet()) {
+            System.out.println(entry.getKey() + ":");
+            for (Bogie b : entry.getValue()) {
+                System.out.println("  " + b);
+            }
+        }
     }
 }
