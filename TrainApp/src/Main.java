@@ -1,62 +1,31 @@
-import java.util.*;
-
-// Step 1: Custom Runtime Exception
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
-
-// Step 2: Goods Bogie Class
-class GoodsBogie {
-    String shape;  // Cylindrical / Rectangular
-    String cargo;
-
-    GoodsBogie(String shape) {
-        this.shape = shape;
-    }
-
-    // Step 3: Assign cargo with validation
-    public void assignCargo(String cargo) {
-        try {
-            // Rule: Rectangular cannot carry Petroleum
-            if (shape.equals("Rectangular") && cargo.equals("Petroleum")) {
-                throw new CargoSafetyException(
-                        "Unsafe cargo: Petroleum cannot be loaded in Rectangular bogie"
-                );
-            }
-
-            this.cargo = cargo;
-            System.out.println("Cargo assigned successfully: " + cargo);
-
-        } catch (CargoSafetyException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } finally {
-            System.out.println("Assignment attempt completed for " + shape + " bogie\n");
-        }
-    }
-
-    @Override
-    public String toString() {
-        return shape + " -> " + cargo;
-    }
-}
-
-// Step 4: Main
-public class Main{
+public class Main {
     public static void main(String[] args) {
 
-        GoodsBogie b1 = new GoodsBogie("Cylindrical");
-        GoodsBogie b2 = new GoodsBogie("Rectangular");
+        // Step 1: Array of capacities
+        int[] capacities = {72, 78, 24, 60, 90};
 
-        // Safe assignment
-        b1.assignCargo("Petroleum");
+        // Step 2: Bubble Sort
+        int n = capacities.length;
 
-        // Unsafe assignment
-        b2.assignCargo("Petroleum");
+        for (int i = 0; i < n - 1; i++) {
+            // After each pass, largest element moves to end
+            for (int j = 0; j < n - i - 1; j++) {
 
-        // Program continues
-        System.out.println("Program continues safely...");
+                // Step 3: Compare adjacent elements
+                if (capacities[j] > capacities[j + 1]) {
+
+                    // Step 4: Swap
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
+            }
+        }
+
+        // Step 5: Display sorted result
+        System.out.println("Sorted Capacities:");
+        for (int cap : capacities) {
+            System.out.print(cap + " ");
+        }
     }
 }
