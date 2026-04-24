@@ -3,27 +3,37 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
-        // Step 1: Array of bogie IDs
+        // Step 1: Sorted array of bogie IDs
         String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        // Step 2: Search key
+        // Step 2: Input key
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter Bogie ID to search: ");
         String key = sc.nextLine();
 
-        // Step 3: Linear Search
+        int low = 0;
+        int high = bogieIds.length - 1;
         boolean found = false;
 
-        for (String id : bogieIds) {
-            if (id.equals(key)) {   // Step 4: Comparison
+        // Step 3: Binary Search
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            int result = key.compareTo(bogieIds[mid]);
+
+            if (result == 0) {
                 found = true;
-                break;              // Step 5: Early termination
+                break;
+            } else if (result > 0) {
+                low = mid + 1;   // search right half
+            } else {
+                high = mid - 1;  // search left half
             }
         }
 
-        // Step 6: Display result
+        // Step 4: Output
         if (found) {
-            System.out.println("Bogie found in the train.");
+            System.out.println("Bogie found using Binary Search.");
         } else {
             System.out.println("Bogie NOT found.");
         }
